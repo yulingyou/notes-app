@@ -35,4 +35,15 @@ describe(NotesView,() => {
     expect(document.querySelectorAll('div.note').length).toEqual(1);
     expect(document.querySelectorAll('div.note')[0].textContent).toEqual('My new note')
   } )
+
+  it('should remove the previous notes when displayNotes is called twice',() => {
+    model.addNote('one');
+    model.addNote('two');
+
+    view.displayNotes();
+    view.displayNotes();
+
+    expect(document.querySelectorAll('div.note').length).toEqual(2);
+  })
+
 })

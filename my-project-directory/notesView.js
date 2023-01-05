@@ -7,10 +7,15 @@ constructor(model) {
   this.buttonEl.addEventListener('click',() => {
     const newNote = document.querySelector('#add-note-input').value;
     this.addNewNote(newNote);
+    const reset = document.querySelector('#add-note-input')
+    reset.value = '';
   })
   }
 
   displayNotes() {
+    document.querySelectorAll('.note').forEach((element) => {
+        element.remove();
+    })
     const notes = this.model.getNotes()
 
     notes.forEach(note => {
