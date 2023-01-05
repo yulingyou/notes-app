@@ -6,12 +6,15 @@ const fs = require('fs');
 
 const NotesModel = require('./notesModel')
 const NotesView = require('./notesView')
+const NotesClient = require('./notesClient')
 
 beforeEach(() => {
   document.body.innerHTML = fs.readFileSync('./index.html');
 
+  client = new NotesClient();
   model = new NotesModel();
-  view = new NotesView(model);
+  view = new NotesView(model,client);
+  
 })
 
 describe(NotesView,() => {
@@ -44,6 +47,21 @@ describe(NotesView,() => {
     view.displayNotes();
 
     expect(document.querySelectorAll('div.note').length).toEqual(2);
+  })
+
+  it('should load the notes',(done) =>{
+    const clientMock = {
+      loadNotes: (callback) => callback(['fake note 1', 'fake note 2']),
+    };
+    const mockView = new NotesView(model, clientMock);
+
+    mockView.displayNotesFromApi();
+    const divs = document.querySelectorAll('div.note');
+    const divsLength = divs.length;
+    expect(divsLength).toBe(2);
+    expect(divs[0].textContent).toEqual('fake note 1');
+    expect(divs[1].textContent).toEqual('fake note 2');
+    done();
   })
 
 })

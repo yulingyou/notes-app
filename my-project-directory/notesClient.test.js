@@ -16,7 +16,7 @@ describe(NotesClient,() =>{
       expect(returnedDataFromApi.name).toBe("Some value")
       expect(returnedDataFromApi.id).toBe(123);
        // 4. Tell Jest our test can now end.
-       done();
+      done();
     });
   });
 });
