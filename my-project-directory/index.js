@@ -11,3 +11,4 @@ note.addNote('This is an example note')
 const client = new NotesClient();
 const view = new NotesView(note, client);
 view.displayNotes();
+view.displayNotesFromApi();
