@@ -7,22 +7,17 @@ class NotesClient {
       });
   }
 
-  createNotes(callback) {
+  createNote(note, callback) {
     fetch('http://localhost:3000/notes', {
-    method: 'POST', // or 'PUT'
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'content': note}),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      callback(data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+      .catch((error) => callback(error));
   }
+
 }
 
 module.exports = NotesClient;

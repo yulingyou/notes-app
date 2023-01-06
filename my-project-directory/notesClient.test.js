@@ -20,20 +20,13 @@ describe(NotesClient,() =>{
     });
   });
 
-  it('calls fetch and post data', (done) => {
-    // 1. Instantiate the class
+  it('createNote adds a note to the database', () => {
+    fetch.mockResponseOnce(JSON.stringify([
+      "Mock note"
+    ]));
     const client = new NotesClient();
-    // 2. We mock the response from `fetch`
-    fetch.mockResponseOnce(JSON.stringify({
-      name: "more value",
-      id: 456
-    }));
-    // 3. We call the method, giving a callback function
-    client.createNotes((returnedDataFromApi) => {
-      expect(returnedDataFromApi.name).toBe("more value")
-      expect(returnedDataFromApi.id).toBe(456);
-       // 4. Tell Jest our test can now end.
-      done();
-    });
+    client.createNote('Mock note');
+
+    expect(fetch.mock.calls[0][0]).toEqual('http://localhost:3000/notes')
   });
 });

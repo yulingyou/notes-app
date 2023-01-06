@@ -10,7 +10,9 @@ constructor(model, client) {
     this.addNewNote(newNote);
     const reset = document.querySelector('#add-note-input')
     reset.value = '';
+
   })
+
   }
 
   displayNotes() {
@@ -30,6 +32,10 @@ constructor(model, client) {
   addNewNote(newNote){
     this.model.addNote(newNote);
     this.displayNotes();
+    this.client.createNote(newNote, () => {
+      this.displayNotesFromApi()
+    })
+
   }
 
   displayNotesFromApi(){
