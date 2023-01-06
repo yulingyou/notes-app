@@ -10,5 +10,17 @@ note.addNote('This is an example note')
 
 const client = new NotesClient();
 const view = new NotesView(note, client);
-view.displayNotes();
-view.displayNotesFromApi();
+// view.displayNotes();
+// view.displayNotesFromApi();
+
+client.loadNotes(
+  (notes) => {
+    // This will be executed if notes are loaded correctly from the server
+    model.setNotes(notes);
+    view.displayNotes();
+  },
+  () => {
+    // This will be executed if there's an error
+    view.displayError();
+  }
+);

@@ -21,12 +21,24 @@ describe(NotesClient,() =>{
   });
 
   it('createNote adds a note to the database', () => {
-    fetch.mockResponseOnce(JSON.stringify([
+    fetch.mockResponseOnce(JSON.stringify(
       "Mock note"
-    ]));
+    ));
     const client = new NotesClient();
     client.createNote('Mock note');
 
     expect(fetch.mock.calls[0][0]).toEqual('http://localhost:3000/notes')
   });
+
+  it("catched fetech error from loadNotes", (done) => {
+    const client = new NotesClient();
+
+    fetch.mockRejectedValue("Oops, something went wrong!");
+
+    client.loadNotes(() => {},(error) => {
+        expect(error).toBe("Oops, something went wrong!");
+        done();
+      });
+  })
+
 });

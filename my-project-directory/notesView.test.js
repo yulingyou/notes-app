@@ -75,4 +75,10 @@ describe(NotesView,() => {
     expect(client.createNote).toHaveBeenCalledTimes(1);
   });
 
+  it("should displays error message", () => {
+    view.displayError();
+    errorEl = document.querySelector("#error")
+    expect(errorEl.textContent).toBe("Oops, something went wrong!")
+  })
+
 })

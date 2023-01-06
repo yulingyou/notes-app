@@ -46,6 +46,13 @@ constructor(model, client) {
       },
     );
   }
+
+  displayError(){
+    const errorEl = document.createElement("div");
+    errorEl.id = "error";
+    errorEl.textContent = "Oops, something went wrong!";
+    this.mainContainerEl.append(errorEl)
+  }
 }
 
 module.exports = NotesView;
