@@ -33,7 +33,8 @@ constructor(model, client) {
     this.model.addNote(newNote);
     this.displayNotes();
     this.client.createNote(newNote, () => {
-      this.displayNotesFromApi()
+      this.displayNotesFromApi();
+      // this.displayError();
     })
 
   }
