@@ -41,4 +41,32 @@ describe(NotesClient,() =>{
       });
   })
 
+  it('emojifyNote sends fetch request', (done) => {
+    jest.setTimeout(30000)
+    const client = new NotesClient();
+    fetch.mockResponseOnce(JSON.stringify({
+      'status': 'OK',
+      'text': "Hello, :earth_africa:",
+      'emojified_text': 'Hello, :earth_africa:'
+    }));
+
+    client.emojifyNote('Hello, :earth_africa:',
+      (responseData) => {
+        expect(responseData.emojified_text).toEqual('Hello, :earth_africa:');
+        expect(fetch).toHaveBeenCalledWith(
+          'https://makers-emojify.herokuapp.com/',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'text': 'Hello, :earth_africa:'})
+          }
+        );
+        done();
+      }
+    );
+
+  });
+
 });
