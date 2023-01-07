@@ -4,12 +4,19 @@ constructor(model, client) {
   this.client = client;
   this.mainContainerEl = document.querySelector('#main-container');
   this.buttonEl = document.querySelector('#add-note-btn')
+  this.deleteBtn = document.querySelector('#delete-btn')
 
   this.buttonEl.addEventListener('click',() => {
     const newNote = document.querySelector('#add-note-input').value;
     this.addNewNote(newNote);
     const reset = document.querySelector('#add-note-input')
     reset.value = '';
+
+    this.deleteBtn.addEventListener('click', () => {
+      this.client.deleteNotes(error => this.displayError(error));
+      this.model.reset();
+      this.displayNotes();
+    });
 
   })
 
@@ -27,6 +34,7 @@ constructor(model, client) {
       noteEl.className = 'note';
       this.mainContainerEl.append(noteEl);
     })
+    
   }
 
   addNewNote(newNote){
@@ -54,6 +62,7 @@ constructor(model, client) {
     errorEl.textContent = "Oops, something went wrong!";
     this.mainContainerEl.append(errorEl)
   }
+
 }
 
 module.exports = NotesView;

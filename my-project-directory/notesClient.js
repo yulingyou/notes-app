@@ -39,6 +39,19 @@ class NotesClient {
       .then(responseData => callback(responseData));
   }
 
+  deleteNotes(errorCallback = () => {}) {
+    fetch("http://localhost:3000/notes", {
+      method: "DELETE", // or 'PUT'
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        errorCallback(error);
+      });
+  }
+
 
 }
 

@@ -66,7 +66,16 @@ describe(NotesClient,() =>{
         done();
       }
     );
+  });
 
+  it("deletes all notes on the database", () => {
+    const client = new NotesClient();
+
+    client.deleteNotes();
+
+    expect(fetch).toHaveBeenCalledWith(
+      'http://localhost:3000/notes', { method: 'DELETE' }
+    );
   });
 
 });
